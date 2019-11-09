@@ -7,19 +7,26 @@ Created on Sat Nov  9 15:38:37 2019
 
 from tkinter import *
 from tkinter import filedialog
+from adjusting import single
+from joblib import load
+classifier = load('classifier.joblib')
 root = Tk()
-global file_path
-file_path = 'Not Path Selected'
 def get_Path():
+    global file_path
     file_path = filedialog.askopenfilename()
     print('Selected:', file_path)
     fileAddress.insert(0,file_path);
 
+def run():
+    #if(count): #Person is detected in the video
+    test = single(file_path)
+    check = classifier.predict(test)
+    print(int(check))
 
 fileFrame = Frame(root)
 fileAddress = Entry(fileFrame,selectborderwidth= '20px',bg = 'black' , fg = 'white' )
 fileButton = Button(fileFrame , text = 'Select Address',command = get_Path)
-analysisButton = Button(fileFrame , text = 'Perform Analysis')
+analysisButton = Button(fileFrame , text = 'Perform Analysis', command = run)
 fileAddress.insert(0,file_path);
 fileAddress.pack()
 fileButton.pack()
