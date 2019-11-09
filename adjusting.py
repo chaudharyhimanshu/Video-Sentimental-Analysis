@@ -64,6 +64,24 @@ def dataset(fights, nofights):
     
     return [data, target]
 
+def single(name):
+    new_image = np.zeros(shape = [40, 64, 64])
+    new_h = 64
+    new_w = 64
+    vidcap = cv2.VideoCapture(name)
+    i = j = 0
+    while True:
+        success,image = vidcap.read()
+        if 0<=i<40:
+            image = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+            resize = cv2.resize(image, (new_w, new_h))
+            new_image[j] = resize
+            j = j + 1
+        elif i >40:
+            break
+        i = i + 1
+    new_image = np.reshape(new_image, (1, 40, 1, 64, 64))
+    return new_image
 '''
 # Testing/fights
 img_mask = 'Dataset/Testing/fights/*.avi'
