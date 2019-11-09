@@ -18,7 +18,8 @@ def get_Path():
     fileAddress.insert(0,file_path);
 
 def run():
-    #if(count): #Person is detected in the video
+    #Person is detected in the video 1- violence 0- no
+    global check
     test = single(file_path)
     check = classifier.predict(test)
     print(int(check))
