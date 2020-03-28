@@ -33,6 +33,16 @@ def adjust(names):
     return new_image
 
 def dataset(fights, nofights):
+    target = np.zeros(shape = (len(nofights), 1))
+    target2 = np.ones(shape = (len(fights), 1))
+    target = np.append(target, target2, axis = 0)
+    del target2
+    data = np.append(nofights, fights, axis = 0)
+    del fights, nofights
+    data, target = shuffle(data, target, random_state=0)
+    data = np.reshape(data, (data.shape[0], 40, 1, 64, 64))
+    return [data, target]
+    '''
     limit = fights.shape[0] + nofights.shape[0]
     target = np.zeros(shape = (limit,1))
     data = np.zeros(shape = [limit, 40, 64, 64])
@@ -62,7 +72,7 @@ def dataset(fights, nofights):
     
     data = np.reshape(data, (data.shape[0], 40, 1, 64, 64))
     
-    return [data, target]
+    return [data, target]'''
 
 def single(name):
     new_image = np.zeros(shape = [40, 64, 64])
